@@ -1,0 +1,16 @@
+# python cache
+__pychache__/
+*.pyc
+
+# virtual environment
+.venv/
+
+# environment variables
+.env
+
+# spotify cache (auth tokens)
+.cache*
+
+# downloaded data
+downloads/
+exports/
