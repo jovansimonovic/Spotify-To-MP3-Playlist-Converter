@@ -43,6 +43,15 @@ os.makedirs(output_folder, exist_ok=True)
 def normalize(name):
     return name.strip().lower().replace('  ', ' ').replace(':', '').replace('"', '').replace('?', '')
 
+# sanitizes filenames and removes illegal characters
+def safe_filename(name, max_length=200):
+    name = re.sub(r'[<>:"/\\|?*]', '', name)
+    name = re.sub(r'\s+', ' ', name).strip()
+    return name[:max_length].rstrip()
+
+#* if filename collisions ever become a problem, consider appending
+#* a unique identifier (hash, timestamp) to the end of the filename
+
 # loads already downloaded songs from the "downloads" folder
 already_downloaded = set()
 
@@ -64,9 +73,9 @@ successful = 0
 for index, row in enumerate(df.itertuples(), start=1):
     song = row.name.strip()
     artist = row.artist.strip()
-    query = f"{song} {artist}"
-    filename_base = f"{artist} - {song}"
-    normalized_filename = normalize(filename_base)
+    query = f"{artist} - {song}"
+    filename_base = safe_filename(query)
+    normalized_filename = normalize(query)
 
     if normalized_filename in already_downloaded:
         print(f"⏭️  {filename_base} is already downloaded. Skipping...")
