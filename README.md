@@ -43,7 +43,7 @@ cd spotify-to-mp3-playlist-converter
 
 ```bash
 python -m venv .venv
-source .vent/Scripts/activate
+source .venv/Scripts/activate
 ```
 
 3. **Install dependencies**
